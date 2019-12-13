@@ -1,0 +1,60 @@
+public with sharing class SecurityUtility 
+  {
+    public static Schema.SObjectField ReturnFieldAPIName (Schema.SObjectType soType, String FieldAPI) 
+     {
+        Schema.SObjectField FieldAPIName;
+        Schema.DescribeSObjectResult dsor = soType.getDescribe();
+        Map<String, Schema.SObjectField> fieldMap = dsor.Fields.getMap();
+        FieldAPIName = fieldMap.get(FieldAPI);
+        return FieldAPIName;        
+     }
+    
+    public static boolean isSafeObject(String objName) 
+     {
+        Map <String, Schema.SObjectType> schemaMap = Schema.getGlobalDescribe();
+        SObjectType myObj = schemaMap.get(objName);
+        if (myObj.getDescribe().isAccessible()) {    
+            return true;    
+        }
+        else {    
+            return false;    
+        }
+     }
+    
+    public static boolean isSafeField(String fieldName, String objName)
+     {
+        Map <String, Schema.SObjectType> schemaMap = Schema.getGlobalDescribe();
+        SObjectType myObj = schemaMap.get(objName);
+        if (myObj.getDescribe().isAccessible()) {
+            SObjectField myField = myObj.getDescribe().fields.getMap().get(fieldName);
+            if(myField!=null && myField.getDescribe().isAccessible()){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else return false;
+     }
+     Public static boolean isSafeObjectCreatable(String objName) {
+        Map <String, Schema.SObjectType> schemaMap = Schema.getGlobalDescribe();
+        SObjectType myObj = schemaMap.get(objName);
+        if (myObj.getDescribe().isCreateable()) {    
+            return true;    
+        }
+        else {    
+            return false;    
+        }
+    }
+    Public static boolean isSafeObjectUpdateable(String objName) {
+        Map <String, Schema.SObjectType> schemaMap = Schema.getGlobalDescribe();
+        SObjectType myObj = schemaMap.get(objName);
+        if (myObj.getDescribe().isUpdateable()) {    
+            return true;    
+        }
+        else {    
+            return false;    
+        }
+    }
+   
+}
