@@ -1,0 +1,24 @@
+Http h = new Http(); HttpRequest req = new HttpRequest();
+string firstImageURL = 'http://chart.apis.google.com/chart?cht=qr&chs=150x150&chl=https://c.na1.visual.force.com/apex/TCC_CTT__TCC_Checkin?id=00v61000002zHzeAAE';
+//Replace any spaces with %20
+firstImageURL = firstImageURL.replace(' ', '%20'); 
+req.setEndpoint(firstImageURL);
+req.setMethod('GET'); 
+//If you want to get a PDF file the Content Type would be 'application/pdf' 
+req.setHeader('Content-Type', 'image/jpeg'); 
+req.setCompressed(true);
+req.setTimeout(60000); 
+HttpResponse res = null;
+res = h.send(req); //These next three lines can show you the actual response for dealing with error situations
+string responseValue = '';
+responseValue = res.getBody(); 
+system.debug('Response Body for File: ' + responseValue); 
+blob image = res.getBodyAsBlob();
+Folder f = [select id from folder where name ='Public Documents'];
+
+Document d = new Document();
+d.Body = image;
+d.folderid=f.id;
+d.name='test.jpg';
+d.contentType = 'image';
+insert d;

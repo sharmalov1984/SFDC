@@ -1,0 +1,9 @@
+
+step-1:get a client_id from connected App and provide as parameter in below URL and after paste in Chrome browser.
+https://test.salesforce.com/services/oauth2/authorize?response_type=code&client_id=3MVG9d3kx8wbPieFuFVCMsFlUx8b4Yok4Ptkgofh5O37iWIlWplGXx9Pvb2aaebxa1f9ZR9UbV_qSOTjQlPoO&redirect_uri=https://test.salesforce.com/services/oauth2/token
+
+Step-2: After submit the above URL in Crome , you wil get the  below code on logged in user context 
+https://test.salesforce.com/services/oauth2/token?code=aPrxH_Ak6v5NNlvlptzUOaYjVorNFCpRKvWvrlk3R7YvTzFwOyDdkTLhaMYmKpf6WyajT2lepg%3D%3D
+
+Step-3: After above URL generated , take the code ,client_id,client_secret make the below URL and Post the URL in postMan you will get the Refresh Token.
+https://hon-bt--hbtgdme2e0.my.salesforce.com/services/oauth2/token?grant_type=authorization_code&code=aPrxH_Ak6v5NNlvlptzUOaYjVorNFCpRKvWvrlk3R7YvTzFwOyDdkTLhaMYmKpf6WyajT2lepg%3D%3D&client_id=3MVG9d3kx8wbPieFuFVCMsFlUx8b4Yok4Ptkgofh5O37iWIlWplGXx9Pvb2aaebxa1f9ZR9UbV_qSOTjQlPoO&client_secret=571ADC67174383A7EC85FD78D9729D7D4F830D6779FB8536E0E97FB3185837AD&redirect_uri=https://test.salesforce.com/services/oauth2/token

@@ -1,0 +1,89 @@
+<apex:page extensions="Product_Select_Controller" standardController="Opportunity"  docType="html-5.0" sidebar="false">
+    <style>
+     .dateInput{white-space:pre-wrap;}
+     .dateFormat{visibility:hidden;}
+      table{
+          width: 30vw;
+          padding-bottom: 0.5em;
+          height: auto;
+      }
+     .set_border{
+          border-right: 2px solid LightSlateGray; 
+          padding-right: 0.25em;
+     }      
+      td{
+      height: auto;
+      padding: 0 0 5px 0;
+     }    
+     .fix{
+          position: absolute;
+          width: 17em;
+          height: auto;
+          margin-left: -17.3em;
+     }
+     .outer{
+          position: relative;    
+      }
+      .inner{
+          overflow-x: scroll;
+          overflow-y: scroll;
+          width: 80.5vw;
+          margin-left: 16.5em;
+      }      
+    </style>
+    
+    <apex:form >
+        <apex:pageMessages />
+             <apex:pageBlock >
+              <div class="outer">
+                <div class="inner">                   
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="background: #778899; color:white" class="fix" width="10%"> Name </th>
+                                <apex:repeat value="{!intList}">                                
+                                   <th width="10%"> Date </th>
+                                   <th width="10%"> Quantity </th>
+                                   <th width="10%"> Price </th>
+                                   <th class="set_border" width="10%"> Description </th>
+                                </apex:repeat>
+                            </tr>
+                        </thead>
+                        <apex:repeat value="{!lstSelectedwrapperOppProd}" var="Prd" id="pb2">
+                            <tr>
+                                <td style="background: #c5ccd3; color:#666666; font-weight: bold;" class="fix">
+                                <apex:outputText value="{!Prd.Name}" title="Name"/>
+                                </td>
+                                    <apex:repeat value="{!mapQuantityDate[Prd.Productid]}" var="qt" rendered="{!Prd.Productid!=null}">                                
+                                        <td>
+                                           <apex:inputfield value="{!qt.tsk.ActivityDate}" required="false"  />
+                                        </td>
+                                        
+                                        <td>
+                                           <apex:inputText value="{!qt.Quantity}" size="10" title="Quantity" html-placeholder="Enter Quantity" />
+                                        </td>
+                                        
+                                        <td>
+                                          <apex:inputtext value="{!qt.TotalPrice}" size="10" title="Price" html-placeholder="Enter the Price" />
+                                        </td>
+                                        
+                                        <td class="set_border">
+                                           <apex:inputText value="{!qt.Description}" title="Description" html-placeholder="Line Description" />
+                                        </td>
+                                   </apex:repeat>
+                            </tr>
+                        </apex:repeat>                                      
+                    </table>
+                 </div>
+               </div>
+            </apex:pageBlock>
+        
+        <apex:commandButton value="Save" action="{!Save}"/>
+        <apex:commandButton value="Cancel" action="{!CancelEntry}"/>
+
+    </apex:form>
+    
+    <script>
+         function setFocusOnLoad() {}
+    </script>
+</apex:page>

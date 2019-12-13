@@ -1,0 +1,11 @@
+ var activestatus = document.getElementById('thePage:theForm:pgblock-form:j_id250:campst');
+            var options = activestatus.getElementsByTagName('OPTION') 
+            if(activestatus.options[activestatus.selectedIndex].value=='Active'){
+            for(var i=0; i<options.length; i++) {
+            if(options[i].innerHTML == 'Completed' || options[i].innerHTML == 'Cancelled' || options[i].innerHTML == 'In Development' || options[i].innerHTML == 'Template' || options[i].innerHTML == 'Members Added' || options[i].innerHTML == 'Order Processed') {
+            activestatus.removeChild(options[i]);
+            i--; // options have now less element, then decrease i
+           }
+             } 
+                
+            }

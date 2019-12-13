@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+ $('#connect').click(function(){
+	    
+          
+var portal = new Object();
+    
+    portal.restEndPoint = 'https://pf-hillwood.cs41.force.com/CreateRecord/services/apexrest/CreateRecordAPI?LastName=kad';
+    
+    portal.runQuery = function(queryString,callback)
+    {
+        var jqxhr = $.getJSON(portal.restEndPoint, {authToken:portal.generateAuthToken(),query: encodeURI(queryString)},  function(response) {
+          console.log('queryRan');
+          callback(response);
+        })        
+    }
+    
+    portal.generateAuthToken = function generateAuthToken()
+    {
+        return Math.round(new Date().getTime() - 42131 / 3 * 8);
+    }
+     portal.runQuery('select name, id from contact',function(result){
+        console.log('Callback ran');
+        console.log(result);
+  
+
+});
+           });
+
+
+    
+    
+});
+
+
+
+ </script>
+
+</head>
+<body>
+<h3>REST API With Javascript</h3>
+<button id="connect">Connect to the REST API</button>
+
+
+ </body>
+
+</html>

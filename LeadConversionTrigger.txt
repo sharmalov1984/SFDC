@@ -1,0 +1,43 @@
+Trigger AutoConverter on Lead (after insert) {
+
+     LeadStatus convertStatus = [
+
+          select MasterLabel
+
+          from LeadStatus
+
+          where IsConverted = true
+
+          limit 1
+
+     ];
+
+     ListDatabase.LeadConvert leadConverts = new ListDatabase.LeadConvert();
+
+ 
+
+     for (Lead lead Trigger.new) {
+
+          if (!lead.isConverted) {
+
+               Database.LeadConvert lc = new Database.LeadConvert();     
+
+               lc.setConvertedStatus(convertStatus.MasterLabel);
+
+               lc.setLeadId(lead.id);
+
+               leadConverts.add(lc);
+
+          }
+
+     }
+
+ 
+
+     if (!leadConverts.isEmpty()) {
+
+          ListDatabase.LeadConvertResult lcr = Database.convertLead(leadConverts);
+
+     }
+
+}
